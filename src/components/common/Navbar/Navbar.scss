@@ -1,0 +1,14 @@
+@import '@/styles/base';
+
+.navbar-container {
+    height: 8vh;
+    background-color: $terciary-color;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    width: 30vw;
+    max-width: 200px;
+    margin-left: $spacing;
+}

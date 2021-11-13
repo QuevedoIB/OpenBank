@@ -1,4 +1,4 @@
-import CreatePassword from 'pages/CreatePassword';
+import CreatePassword from '@/pages/CreatePassword';
 
 const routes = [{ path: '/', element: <CreatePassword /> }];
 

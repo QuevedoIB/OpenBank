@@ -1,0 +1,32 @@
+@import '@/styles/base.scss';
+
+.header-container {
+    display: grid;
+    place-content: center;
+    background-color: lightgray;
+
+    & .step {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-right: $spacing;
+    }
+
+    & .circle {
+        display: grid;
+        place-content: center;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        background-color: $secondary-color;
+        color: $terciary-color;
+    }
+
+    & .triangle {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid $white;
+    }
+}

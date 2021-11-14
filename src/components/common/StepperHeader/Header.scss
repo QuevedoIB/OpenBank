@@ -1,9 +1,12 @@
-@import '@/styles/base.scss';
+@import '@/styles/base';
+@import '@/styles/mixins';
+
+$triangle-size: 10px;
 
 .header-container {
     display: flex;
     justify-content: center;
-    background-color: lightgray;
+    background-color: #ccd5da;
 
     & ul {
         display: flex;
@@ -15,6 +18,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         margin-right: $spacing;
 
         &:first-child {
@@ -30,20 +34,23 @@
                 border-radius: 50%;
                 height: 40px;
                 width: 40px;
-                background-color: $secondary-color;
                 color: $terciary-color;
                 margin: $spacing 0;
-            }
-        }
 
-        &:not(:last-child) .circle-container::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -($spacing);
-            height: 2px;
-            width: $spacing;
-            background-color: $secondary-color;
+                @include background-opacity($secondary-color);
+            }
+
+            &.selected {
+                .circle {
+                    height: 50px;
+                    width: 50px;
+                    background-color: $secondary-color;
+                }
+            }
+
+            &:not(.selected) {
+                margin-bottom: $triangle-size;
+            }
         }
 
         &.completed {
@@ -52,16 +59,35 @@
             }
         }
 
-        &:not(:last-child).completed .circle-container::after {
-            background-color: $primary-color;
+        &:not(:last-child) {
+            & .circle-container::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: -($spacing);
+                height: 2px;
+                width: $spacing;
+
+                @include background-opacity($secondary-color);
+            }
+
+            & .circle-container.selected::after {
+                background-color: $secondary-color;
+            }
+
+            &.completed .circle-container::after {
+                background-color: $primary-color;
+            }
         }
+
+        //
 
         & .triangle {
             width: 0;
             height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 10px solid $white;
+            border-left: $triangle-size solid transparent;
+            border-right: $triangle-size solid transparent;
+            border-bottom: $triangle-size solid $white;
         }
     }
 }

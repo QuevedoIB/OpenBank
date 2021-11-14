@@ -1,6 +1,7 @@
 {
     "common": {
         "next": "Siguiente",
+        "previous": "Previo",
         "cancel": "Cancelar",
         "create": "Crea",
         "repeat": "Repite"

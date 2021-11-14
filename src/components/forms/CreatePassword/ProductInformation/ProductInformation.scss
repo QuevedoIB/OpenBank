@@ -1,0 +1,21 @@
+@import '@/styles/base';
+
+.images-container {
+    display: flex;
+
+    & div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: $spacing;
+
+        & img {
+            width: 10rem;
+            height: 10rem;
+        }
+
+        & p {
+            max-width: 50%;
+        }
+    }
+}

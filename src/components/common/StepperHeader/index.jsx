@@ -10,7 +10,7 @@ const Header = ({ steps, selectedStep }) => {
             steps.map((_, i) => (
                 <StepItem key={i} selected={selectedStep} index={i} />
             )),
-        [steps]
+        [steps, selectedStep]
     );
     return (
         <header className="header-container">

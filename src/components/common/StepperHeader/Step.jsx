@@ -2,14 +2,15 @@ import completedImage from '@/assets/img/check.svg';
 
 const StepItem = ({ selected, index }) => {
     const completed = index < selected;
+    const currentlySelected = index === selected;
     return (
         <li className={`step ${completed ? 'completed' : ''}`}>
-            <div className="circle-container">
-                <div
-                    className={`circle ${
-                        selected === index ? 'selected' : 'not-selected'
-                    }`}
-                >
+            <div
+                className={`circle-container  ${
+                    currentlySelected ? 'selected' : ''
+                }`}
+            >
+                <div className="circle">
                     {completed ? (
                         <img
                             src={completedImage}
@@ -22,7 +23,7 @@ const StepItem = ({ selected, index }) => {
                 </div>
                 <div className="bar" />
             </div>
-            {selected === index && <div className="triangle" />}
+            {currentlySelected && <div className="triangle" />}
         </li>
     );
 };

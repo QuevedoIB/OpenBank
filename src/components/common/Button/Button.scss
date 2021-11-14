@@ -1,0 +1,30 @@
+@import '@/styles/base';
+
+.container {
+    align-items: center;
+    background-color: inherit;
+    border: none;
+    color: $secondary-color;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    font-weight: bold;
+
+    & p {
+        margin: 0;
+    }
+
+    &:hover p {
+        box-shadow: 0 1px $secondary-color;
+    }
+
+    &.primary {
+        color: $terciary-color;
+        background-color: $secondary-color;
+
+        &:hover p {
+            box-shadow: 0 1px $terciary-color;
+        }
+    }
+}

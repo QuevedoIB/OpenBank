@@ -3,5 +3,5 @@
 .layout-container {
     display: grid;
     height: 100%;
-    padding: $spacing 4vw 0 4vw;
+    padding: $spacing $layout-spacing 0 $layout-spacing;
 }

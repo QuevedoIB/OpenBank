@@ -1,24 +1,22 @@
 import { useMemo } from 'react';
+
+import StepItem from './Step';
+
 import './Header.scss';
 
 const Header = ({ steps, selectedStep }) => {
     const headerSteps = useMemo(
         () =>
             steps.map((_, i) => (
-                <div key={i} className="step">
-                    <div
-                        className={`circle ${
-                            selectedStep === i ? 'selected' : 'not-selected'
-                        }`}
-                    >
-                        <p>{i + 1}</p>
-                    </div>
-                    {selectedStep === i && <div className="triangle" />}
-                </div>
+                <StepItem key={i} selected={selectedStep} index={i} />
             )),
         [steps]
     );
-    return <header className="header-container">{headerSteps}</header>;
+    return (
+        <header className="header-container">
+            <ul>{headerSteps}</ul>
+        </header>
+    );
 };
 
 export default Header;

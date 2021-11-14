@@ -1,32 +1,72 @@
 @import '@/styles/base.scss';
 
 .header-container {
-    display: grid;
-    place-content: center;
+    display: flex;
+    justify-content: center;
     background-color: lightgray;
+
+    & ul {
+        display: flex;
+        overflow: auto;
+        max-width: calc(100vw - ($layout-spacing * 2));
+    }
 
     & .step {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        align-items: center;
         margin-right: $spacing;
-    }
 
-    & .circle {
-        display: grid;
-        place-content: center;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        background-color: $secondary-color;
-        color: $terciary-color;
-    }
+        &:first-child {
+            margin-left: $spacing;
+        }
 
-    & .triangle {
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid $white;
+        & .circle-container {
+            position: relative;
+
+            & .circle {
+                display: grid;
+                place-content: center;
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
+                background-color: $secondary-color;
+                color: $terciary-color;
+                margin: $spacing 0;
+            }
+        }
+
+        &:not(:last-child) .circle-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -($spacing);
+            height: 2px;
+            width: $spacing;
+            background-color: $secondary-color;
+        }
+
+        &.completed {
+            & .circle {
+                background-color: $primary-color;
+            }
+        }
+
+        &:not(:last-child).completed .circle-container::after {
+            background-color: $primary-color;
+        }
+
+        & .triangle {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid $white;
+        }
     }
+}
+
+.check-image {
+    height: 1rem;
+    width: 1rem;
 }

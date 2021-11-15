@@ -4,9 +4,11 @@ import i18n from '@/locale';
 
 import Input from '@/components/common/Input';
 
+import './Form.scss';
+
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 24;
-const HINT_MAX_LENGTH = 240;
+const HINT_MAX_LENGTH = 255;
 
 export const validation = Yup.object().shape({
     password: Yup.string()
@@ -35,13 +37,14 @@ export const validation = Yup.object().shape({
     ),
 });
 
-const Step2 = ({}) => {
+const Step2 = ({ values }) => {
     const [t] = useTranslation();
     return (
         <>
             <p>{t('createPassword.common.workContent')}</p>
-            <div>
+            <div className="password-section">
                 <Input
+                    type="password"
                     name="password"
                     label={t('createPassword.step2.passwordLabel', {
                         action: t('common.create'),
@@ -50,9 +53,9 @@ const Step2 = ({}) => {
                     placeholder={t('createPassword.step2.passwordLabel', {
                         action: t('common.type'),
                     })}
-                    secureTextEntry
                 />
                 <Input
+                    type="password"
                     name="repeatPassword"
                     label={t('createPassword.step2.passwordLabel', {
                         action: t('common.repeat'),
@@ -61,7 +64,6 @@ const Step2 = ({}) => {
                     placeholder={t('createPassword.step2.passwordLabel', {
                         action: t('common.repeat'),
                     })}
-                    secureTextEntry
                 />
             </div>
             <p>{t('createPassword.step2.passwordFooter')}</p>
@@ -69,7 +71,9 @@ const Step2 = ({}) => {
                 name="hint"
                 label={t('createPassword.step2.hintLabel')}
                 placeholder={t('createPassword.step2.hintPlaceholder')}
-            />
+            >
+                <p className="hint-characters-counter">{`${values.hint?.length}/${HINT_MAX_LENGTH}`}</p>
+            </Input>
         </>
     );
 };

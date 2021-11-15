@@ -2,12 +2,9 @@
 @import '@/styles/mixins';
 
 .images-container {
-    display: flex;
-    flex-wrap: wrap;
-
-    & div {
+    @include split-container {
         @include centered-container;
-        width: 50%;
+        justify-content: initial;
 
         & img {
             width: 10rem;
@@ -24,7 +21,6 @@
 @media screen and (max-width: $mobile-size) {
     .images-container {
         & div {
-            width: 100%;
             & p {
                 max-width: 100%;
             }

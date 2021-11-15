@@ -5,25 +5,35 @@ import Button from '@/components/common/Button';
 
 import './CreatePassword.scss';
 
-const Footer = ({ onCancelPress, steps, selectedStep, disabled }) => {
+const Footer = ({ onCancelPress, steps, selectedStep, disabled, children }) => {
+    const isLastStep = selectedStep === steps.length - 1;
+    const hasPreviousStep = steps?.[selectedStep - 1];
+
     const [t] = useTranslation();
     return (
         <footer className="footer-container">
-            {steps?.[selectedStep - 1] && (
-                <Button
-                    role="secondary"
-                    text={t('common.previous')}
-                    onClick={onCancelPress}
-                    disabled={disabled}
-                />
-            )}
-            {selectedStep !== steps.length - 1 && (
-                <Button classes="footer-next" type="submit" disabled={disabled}>
-                    <>
-                        <p>{t('common.next')}</p>
-                        <FiChevronRight size={'1rem'} />
-                    </>
-                </Button>
+            {isLastStep ? (
+                children
+            ) : (
+                <>
+                    {hasPreviousStep && (
+                        <Button
+                            role="secondary"
+                            text={t('common.previous')}
+                            onClick={onCancelPress}
+                        />
+                    )}
+                    <Button
+                        classes="footer-right"
+                        type="submit"
+                        disabled={disabled}
+                    >
+                        <>
+                            <p>{t('common.next')}</p>
+                            <FiChevronRight size={'1rem'} />
+                        </>
+                    </Button>
+                </>
             )}
         </footer>
     );

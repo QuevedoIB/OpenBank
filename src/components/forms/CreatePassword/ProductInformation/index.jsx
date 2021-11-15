@@ -13,7 +13,7 @@ export const validation = Yup.object().shape({
     terms: Yup.bool().oneOf([true], i18n.t('forms.errors.required')),
 });
 
-const Step1 = ({ values, errors }) => {
+const Step1 = ({ errors }) => {
     const [t] = useTranslation();
     return (
         <>
@@ -28,11 +28,11 @@ const Step1 = ({ values, errors }) => {
                 </div>
             </div>
             <div>
-                <h4>{t('createPassword.step1.workLabel')}</h4>
+                <h2>{t('createPassword.step1.workLabel')}</h2>
                 <p>{t('createPassword.common.workContent')}</p>
             </div>
             <div>
-                <h4>{t('createPassword.step1.dataLabel')}</h4>
+                <h2>{t('createPassword.step1.dataLabel')}</h2>
                 <p>{t('createPassword.step1.dataContent')}</p>
             </div>
             <label>

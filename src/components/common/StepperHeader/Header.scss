@@ -6,7 +6,7 @@ $triangle-size: 10px;
 .header-container {
     display: flex;
     justify-content: center;
-    background-color: #ccd5da;
+    background-color: $dark-blue;
 
     & ul {
         display: flex;

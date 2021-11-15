@@ -1,3 +1,5 @@
+@import '@/styles/base';
+
 @mixin background-opacity($color, $opacity: 0.5) {
     background: $color; //Fallback
     background: rgba($color, $opacity);
@@ -8,4 +10,34 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+@mixin split-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > div {
+        width: 50%;
+        &:first-child {
+            padding-right: $spacing;
+        }
+        &:last-child {
+            padding-left: $spacing;
+        }
+        @content;
+    }
+
+    @media screen and (max-width: $mobile-size) {
+        & {
+            & > div {
+                width: 100%;
+                &:first-child {
+                    padding-right: 0;
+                }
+                &:last-child {
+                    padding-left: 0;
+                }
+            }
+        }
+    }
 }

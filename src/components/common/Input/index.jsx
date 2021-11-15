@@ -1,13 +1,15 @@
 import { Field } from 'formik';
 import PropTypes from 'prop-types';
 
-const Input = ({ label, name, id, ...rest }) => {
+import './Input.scss';
+
+const Input = ({ label, name, id, children, ...rest }) => {
     return (
         <div>
             {label && <label htmlFor={id || `input-${name}`}>{label}</label>}
             <Field name={name}>
                 {({ field, meta }) => (
-                    <div>
+                    <div className="input-container">
                         <input
                             id={id || `input-${name}`}
                             {...field}
@@ -16,6 +18,7 @@ const Input = ({ label, name, id, ...rest }) => {
                         {meta.touched && meta.error && (
                             <p className="error-message">{meta.error}</p>
                         )}
+                        {children}
                     </div>
                 )}
             </Field>

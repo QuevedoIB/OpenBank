@@ -4,7 +4,8 @@
         "previous": "Previo",
         "cancel": "Cancelar",
         "create": "Crea",
-        "repeat": "Repite"
+        "repeat": "Repite",
+        "type": "Introduce"
     },
     "createPassword": {
         "title": "$t(common.create) tu Password Manager",
@@ -17,13 +18,14 @@
             "boxImageFooter": "Crea tu clave maestra: solo tú podrás acceder a tus secretos con ella.",
             "workLabel": "Cómo funciona",
             "dataLabel": "Qué datos puedes guardar",
-            "dataContent": "Por ejemplo, el número de tu tarjeta, el PIN y el PUK de tu teléfono móvil, el número de serie de alguno de tus dispositivos o cualquier información que necesites tener en lugar seguro."
+            "dataContent": "Por ejemplo, el número de tu tarjeta, el PIN y el PUK de tu teléfono móvil, el número de serie de alguno de tus dispositivos o cualquier información que necesites tener en lugar seguro.",
+            "termsOfService": "Al seleccionar la opción se confirma tener más de 18 años y haber leído y aceptado los <0>Términos y condiciones</0>."
         },
         "step2": {
             "passwordLabel": "{{action}} tu Contraseña {{type}}",
             "passwordFooter": "También puedes crear una pista que te ayude a recordar tu contraseña maestra.",
             "hintLabel": "$t(common.create) tu pista para recordar tu contraseña (opcional)",
-            "hintPlaceholder": "Introduce tu pista"
+            "hintPlaceholder": "$t(common.type) tu pista"
         },
         "step3": {
             "success": {
@@ -35,6 +37,17 @@
                 "title": "Ha habido un error",
                 "content": "No hemos podido modificar tu Contraseña Maestra. Inténtalo más tarde.",
                 "actionText": "Volver a Password Manager"
+            }
+        }
+    },
+    "forms": {
+        "errors": {
+            "required": "Este campo es obligatorio",
+            "maxLength": "Este campo no puede tener más de {{value}} carácteres",
+            "minLength": "Este campo no puede tener menos de {{value}} carácteres",
+            "password": {
+                "notMatch": "Las contraseñas no coinciden",
+                "format": "La contraseña debe contener al menos un número y una mayúscula"
             }
         }
     }

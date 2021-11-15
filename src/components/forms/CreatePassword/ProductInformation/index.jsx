@@ -1,12 +1,19 @@
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
+import * as Yup from 'yup';
 import { Field } from 'formik';
+import i18n from '@/locale';
 
 import InformationSettingsImage from '@/assets/img/group.svg';
 import InformationBoxImage from '@/assets/img/group-3.svg';
 
 import './ProductInformation.scss';
 
-const Step1 = ({ values }) => {
+export const validation = Yup.object().shape({
+    terms: Yup.bool().oneOf([true], i18n.t('forms.errors.required')),
+});
+
+const Step1 = ({ values, errors }) => {
     const [t] = useTranslation();
     return (
         <>
@@ -29,8 +36,16 @@ const Step1 = ({ values }) => {
                 <p>{t('createPassword.step1.dataContent')}</p>
             </div>
             <label>
-                <Field type="checkbox" name="terms" checked={values.terms} />
-                {t('')}
+                <Field type="checkbox" name="terms" />
+                <Trans i18nKey="createPassword.step1.termsOfService">
+                    <Link
+                        to="/terms"
+                        onClick={() =>
+                            alert('No implementado, redirección a ToS')
+                        }
+                    />
+                </Trans>
+                <p className="error-message">{errors?.terms}</p>
             </label>
         </>
     );

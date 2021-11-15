@@ -44,17 +44,21 @@ const CreatePassword = () => {
             <Header steps={steps} selectedStep={step} />
             <h1 className="title">{t('createPassword.title')}</h1>
             <Formik
+                validationSchema={SelectedStep?.validation}
                 initialValues={createPasswordInitialValues}
                 onSubmit={handleSubmit}
             >
-                {({ values }) => (
+                {({ isSubmitting, isValid, dirty, ...form }) => (
                     <Form>
-                        {<SelectedStep values={values} />}
+                        <div className="form-body">
+                            {<SelectedStep.component {...form} />}
+                        </div>
                         <Separator />
                         <Footer
                             onCancelPress={handlePrevious}
                             steps={steps}
                             selectedStep={step}
+                            disabled={isSubmitting || !isValid || !dirty}
                         />
                     </Form>
                 )}

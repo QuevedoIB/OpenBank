@@ -2,7 +2,7 @@
 
 .layout-container {
     display: grid;
-    height: 100%;
-    padding: $spacing $layout-spacing 0 $layout-spacing;
+    min-height: calc(100vh - $navbar-size);
+    padding: $spacing $layout-spacing;
     background-color: $background-color;
 }

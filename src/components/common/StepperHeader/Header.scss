@@ -15,10 +15,7 @@ $triangle-size: 10px;
     }
 
     & .step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        @include centered-container;
         margin-right: $spacing;
 
         &:first-child {

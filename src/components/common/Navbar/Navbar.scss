@@ -1,7 +1,7 @@
 @import '@/styles/base';
 
 .navbar-container {
-    height: 8vh;
+    height: $navbar-size;
     background-color: #e3e9e9;
     display: flex;
     align-items: center;

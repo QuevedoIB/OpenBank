@@ -1,4 +1,5 @@
 @import '@/styles/base';
+@import '@/styles/mixins';
 
 .container {
     align-items: center;
@@ -23,8 +24,21 @@
         color: $terciary-color;
         background-color: $secondary-color;
 
+        &:disabled {
+            @include background-opacity($secondary-color);
+        }
+
         &:hover p {
             box-shadow: 0 1px $terciary-color;
+        }
+    }
+
+    &:disabled {
+        pointer-events: none;
+        cursor: default;
+
+        &:hover p {
+            box-shadow: none;
         }
     }
 }

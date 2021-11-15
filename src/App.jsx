@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Navbar from '@/components/common/Navbar';
@@ -10,19 +10,12 @@ import { store } from '@/redux/store';
 import './App.scss';
 
 const App = () => {
+    const page = useRoutes(routes);
     return (
-        <Router>
-            <Provider store={store}>
-                <Navbar />
-                <Layout>
-                    <Routes>
-                        {routes.map(route => (
-                            <Route key={route.path} {...route} />
-                        ))}
-                    </Routes>
-                </Layout>
-            </Provider>
-        </Router>
+        <Provider store={store}>
+            <Navbar />
+            <Layout>{page}</Layout>
+        </Provider>
     );
 };
 

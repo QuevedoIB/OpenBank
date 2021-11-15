@@ -5,7 +5,8 @@
         "cancel": "Cancelar",
         "create": "Crea",
         "repeat": "Repite",
-        "type": "Introduce"
+        "type": "Introduce",
+        "edit": "Edita"
     },
     "createPassword": {
         "title": "$t(common.create) tu Password Manager",

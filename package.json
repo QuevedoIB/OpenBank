@@ -14,6 +14,7 @@
     "react-i18next": "10.13.2",
     "react-icons": "^4.3.1",
     "react-query": "3.21.0",
+    "react-redux": "^7.2.6",
     "react-router-dom": "6.0.2",
     "vite-plugin-react-svg": "^0.2.0",
     "yup": "0.32.11"
@@ -21,7 +22,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"

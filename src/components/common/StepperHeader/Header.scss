@@ -29,8 +29,8 @@ $triangle-size: 10px;
                 display: grid;
                 place-content: center;
                 border-radius: 50%;
-                height: 40px;
-                width: 40px;
+                height: $icon-size;
+                width: $icon-size;
                 color: $terciary-color;
                 margin: $spacing 0;
 
@@ -39,8 +39,8 @@ $triangle-size: 10px;
 
             &.selected {
                 .circle {
-                    height: 50px;
-                    width: 50px;
+                    height: calc($icon-size + 10px);
+                    width: calc($icon-size + 10px);
                     background-color: $secondary-color;
                 }
             }

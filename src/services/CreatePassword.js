@@ -19,11 +19,17 @@ class CreatePasswordService {
     }
 
     create(data) {
-        console.log('create');
-        const success = Math.random() >= 0.5;
-        return success
-            ? Promise.resolve({ hasMasterPassword: true })
-            : Promise.reject();
+        return new Promise((resolve, reject) => {
+            const success = Math.random() >= 0.5;
+            setTimeout(
+                () =>
+                    success
+                        ? resolve({ data: { hasMasterPassword: true } })
+                        : reject({ status: 500 }),
+                3000
+            );
+        });
+
         //return this.service.post('/create', { data });
     }
 }

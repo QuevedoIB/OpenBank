@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 
@@ -9,6 +10,7 @@ import StyledLink from '@/components/common/StyledLink';
 import Footer from './Footer';
 
 import CreatePasswordService from '@/services/CreatePassword';
+import { editUser } from '@/redux/reducers/userReducer';
 
 import './CreatePassword.scss';
 
@@ -25,6 +27,8 @@ const CreatePassword = () => {
     const [step, setStep] = useState(INITIAL_STEP);
     const [submitRedirect, setSubmitRedirect] = useState(null);
     const [t] = useTranslation();
+    const dispatch = useDispatch();
+    const hasPassword = useSelector(state => state.user.user.hasMasterPassword); //redux usage example
 
     const SelectedStep = useMemo(() => steps[step], [step]);
 
@@ -36,37 +40,36 @@ const CreatePassword = () => {
         setStep(currentStep => currentStep - 1);
     }, []);
 
-    const handleSubmit = useCallback(async (data, bag) => {
-        const isSubmitStep = step === steps.length - 2;
+    const handleSubmit = useCallback(
+        async (data, bag) => {
+            const isSubmitStep = step === steps.length - 2;
 
-        console.log('STEP, isSubmitStep');
+            if (!isSubmitStep) return setStep(currentStep => currentStep + 1);
 
-        if (!isSubmitStep) return setStep(currentStep => currentStep + 1);
+            setSubmitRedirect(null);
 
-        setSubmitRedirect(null);
-
-        console.log('SUBMIT');
-
-        try {
-            //api call save form data
-            const response = await CreatePasswordService.create(data);
-            console.log(response, 'success');
-            setSubmitRedirect({
-                path: '/access',
-                text: t(`createPassword.step3.link.access`),
-            });
-        } catch (error) {
-            console.log(error, 'error');
-
-            setSubmitRedirect({
-                path: '/',
-                text: t(`createPassword.step3.link.access`),
-            });
-        } finally {
-            bag.setSubmitting(false);
-            bag.resetForm();
-        }
-    }, []);
+            try {
+                //api call save form data
+                const response = await CreatePasswordService.create(data);
+                dispatch(editUser(response.data)); //redux usage example
+                setSubmitRedirect({
+                    path: '/access',
+                    text: t(`createPassword.step3.success.actionText`),
+                });
+            } catch (error) {
+                setSubmitRedirect({
+                    path: '/',
+                    text: t(`createPassword.step3.error.actionText`),
+                    error,
+                });
+            } finally {
+                bag.setSubmitting(false);
+                bag.resetForm();
+                setStep(currentStep => currentStep + 1);
+            }
+        },
+        [step]
+    );
 
     return (
         <section className="create-password-container">
@@ -80,14 +83,20 @@ const CreatePassword = () => {
                 {({ submitForm, isSubmitting, isValid, dirty, ...form }) => (
                     <Form>
                         <div className="form-body">
-                            {<SelectedStep.component {...form} />}
+                            {
+                                <SelectedStep.component
+                                    {...form}
+                                    submitRedirect={submitRedirect}
+                                />
+                            }
                         </div>
                         <Separator />
                         <Footer
                             onCancelPress={handlePrevious}
                             steps={steps}
                             selectedStep={step}
-                            disabled={isSubmitting || !isValid || !dirty}
+                            disabled={!isValid || !dirty}
+                            loading={isSubmitting}
                         >
                             {submitRedirect && (
                                 <StyledLink

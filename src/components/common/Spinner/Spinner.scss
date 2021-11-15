@@ -1,0 +1,23 @@
+@import '@/styles/base';
+
+.spinner {
+    -webkit-animation: spin 1s ease-in-out infinite;
+    animation: spin 1s ease-in-out infinite;
+    border-radius: 50%;
+    border: 0.25rem solid $secondary-color;
+    border-top-color: $terciary-color;
+    height: 1rem;
+    margin: auto;
+    width: 1rem;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}

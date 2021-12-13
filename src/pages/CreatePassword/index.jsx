@@ -14,7 +14,7 @@ import { editUser } from '@/redux/reducers/userReducer';
 
 import './CreatePassword.scss';
 
-const INITIAL_STEP = 0;
+import { INITIAL_STEP } from '@/constants';
 
 const createPasswordInitialValues = {
     terms: false,

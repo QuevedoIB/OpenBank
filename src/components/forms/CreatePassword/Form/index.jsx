@@ -4,11 +4,13 @@ import i18n from '@/locale';
 
 import Input from '@/components/common/Input';
 
-import './Form.scss';
+import {
+    HINT_MAX_LENGTH,
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+} from '@/constants';
 
-const PASSWORD_MIN_LENGTH = 8;
-const PASSWORD_MAX_LENGTH = 24;
-const HINT_MAX_LENGTH = 255;
+import './Form.scss';
 
 export const validation = Yup.object().shape({
     password: Yup.string()

@@ -29,11 +29,15 @@ describe('Create password flow', () => {
             .contains(i18n.t('createPassword.step1.dataContent'));
     });
 
-    it('First step is disabled till user accepts ToS', () => {
+    it('First step disables if user does not accept ToS', () => {
         cy.contains(i18n.t('common.next'))
             .closest('button[type="submit"]')
             .as('submitButton')
-            .should('be.disabled');
+            .should('not.be.disabled');
+
+        cy.get('@submitButton').click();
+
+        cy.get('@submitButton').should('be.disabled');
 
         cy.get('input[name="terms"]').click();
 
@@ -61,12 +65,12 @@ describe('Create password flow', () => {
 
         cy.get('input[name="password"]')
             .as('passwordInput')
-            .parent()
+            .parents('.input-wrapper')
             .contains(i18n.t('forms.errors.required'));
 
         cy.get('input[name="repeatPassword"]')
             .as('repeatPassword')
-            .parent()
+            .parents('.input-wrapper')
             .contains(i18n.t('forms.errors.required'));
 
         cy.get('@submitButton').should('be.disabled');
@@ -74,31 +78,31 @@ describe('Create password flow', () => {
         cy.get('@passwordInput').type('1234567');
 
         cy.get('@passwordInput')
-            .parent()
+            .parents('.input-wrapper')
             .contains(i18n.t('forms.errors.minLength', { value: 8 }));
 
         cy.get('@passwordInput').type('8');
 
         cy.get('@passwordInput')
-            .parent()
+            .parents('.input-wrapper')
             .contains(i18n.t('forms.errors.password.format'));
 
         cy.get('@passwordInput').type('A');
 
         cy.get('@passwordInput')
-            .parent()
+            .parents('.input-wrapper')
             .within(() => {
                 cy.get('.error-message').should('not.exist');
             });
 
         cy.get('@repeatPassword')
             .type('1234567')
-            .parent()
+            .parents('.input-wrapper')
             .contains(i18n.t('forms.errors.password.notMatch'));
 
         cy.get('@repeatPassword')
             .type('8A')
-            .parent()
+            .parents('.input-wrapper')
             .within(() => {
                 cy.get('.error-message').should('not.exist');
             });
@@ -114,7 +118,7 @@ describe('Create password flow', () => {
             .type(new Array(HINT_MAX_LENGTH + 2).join('a'));
 
         cy.get('@hintInput')
-            .parent()
+            .parents('.input-wrapper')
             .within(() => {
                 cy.get('.error-message').contains(
                     i18n.t('forms.errors.maxLength', { value: HINT_MAX_LENGTH })
@@ -124,7 +128,7 @@ describe('Create password flow', () => {
             });
     });
 
-    it('Step 3 gives correct feedback', () => {
+    it('Step 3 gives success feedback', () => {
         cy.fillStep1();
 
         cy.get('input[name="password"]').type('12345678A');
@@ -134,8 +138,19 @@ describe('Create password flow', () => {
             .closest('button[type="submit"]')
             .click();
 
-        //intercept or mock the /create request and query based on response
-        // cy.contains(i18n.t('createPassword.step3.success.title'));
-        // cy.contains(i18n.t('createPassword.step3.error.title'));
+        cy.get('.feedback-container.success');
+    });
+
+    it('Step 3 gives error feedback', () => {
+        cy.fillStep1();
+
+        cy.get('input[name="password"]').type('pruebaKO123');
+        cy.get('input[name="repeatPassword"]').type('pruebaKO123');
+
+        cy.contains(i18n.t('common.next'))
+            .closest('button[type="submit"]')
+            .click();
+
+        cy.get('.feedback-container.error');
     });
 });

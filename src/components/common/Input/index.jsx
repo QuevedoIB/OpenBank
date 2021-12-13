@@ -5,7 +5,7 @@ import './Input.scss';
 
 const Input = ({ label, name, id, children, icon, ...rest }) => {
     return (
-        <div>
+        <div className="input-wrapper">
             {label && <label htmlFor={id || `input-${name}`}>{label}</label>}
             <Field name={name}>
                 {({ field, meta }) => (

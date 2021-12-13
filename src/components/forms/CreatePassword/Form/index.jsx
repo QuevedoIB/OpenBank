@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import i18n from '@/locale';
 
 import Input from '@/components/common/Input';
+import PasswordVisibility from '@/components/buttons/PasswordVisibility';
 
 import {
     HINT_MAX_LENGTH,
@@ -11,6 +12,7 @@ import {
 } from '@/constants';
 
 import './Form.scss';
+import useToggle from '@/hooks/useToggle';
 
 export const validation = Yup.object().shape({
     password: Yup.string()
@@ -41,12 +43,19 @@ export const validation = Yup.object().shape({
 
 const Step2 = ({ values }) => {
     const [t] = useTranslation();
+
+    const { toggled: visiblePassword, handleToggle: togglePassword } =
+        useToggle(false);
+
+    const { toggled: visibleRepeat, handleToggle: toggleRepeat } =
+        useToggle(false);
+
     return (
         <>
             <p>{t('createPassword.common.workContent')}</p>
             <div className="password-section">
                 <Input
-                    type="password"
+                    type={visiblePassword ? 'text' : 'password'}
                     name="password"
                     label={t('createPassword.step2.passwordLabel', {
                         action: t('common.create'),
@@ -55,9 +64,14 @@ const Step2 = ({ values }) => {
                     placeholder={t('createPassword.step2.passwordLabel', {
                         action: t('common.type'),
                     })}
-                />
+                >
+                    <PasswordVisibility
+                        visible={visiblePassword}
+                        toggleVisibility={togglePassword}
+                    />
+                </Input>
                 <Input
-                    type="password"
+                    type={visibleRepeat ? 'text' : 'password'}
                     name="repeatPassword"
                     label={t('createPassword.step2.passwordLabel', {
                         action: t('common.repeat'),
@@ -66,7 +80,12 @@ const Step2 = ({ values }) => {
                     placeholder={t('createPassword.step2.passwordLabel', {
                         action: t('common.repeat'),
                     })}
-                />
+                >
+                    <PasswordVisibility
+                        visible={visibleRepeat}
+                        toggleVisibility={toggleRepeat}
+                    />
+                </Input>
             </div>
             <p>{t('createPassword.step2.passwordFooter')}</p>
             <Input

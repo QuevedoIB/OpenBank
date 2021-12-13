@@ -24,7 +24,6 @@ class CreatePasswordService {
     }
 
     create(data) {
-        console.log({ data });
         return new Promise((resolve, reject) => {
             setTimeout(
                 () =>

@@ -6,8 +6,6 @@ import * as serviceWorker from './serviceWorker';
 
 import '@/locale';
 
-import './index.css';
-
 ReactDOM.render(
     <BrowserRouter>
         <App />

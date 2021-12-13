@@ -3,23 +3,28 @@ import PropTypes from 'prop-types';
 
 import './Input.scss';
 
-const Input = ({ label, name, id, children, ...rest }) => {
+const Input = ({ label, name, id, children, icon, ...rest }) => {
     return (
         <div>
             {label && <label htmlFor={id || `input-${name}`}>{label}</label>}
             <Field name={name}>
                 {({ field, meta }) => (
-                    <div className="input-container">
-                        <input
-                            id={id || `input-${name}`}
-                            {...field}
-                            {...rest}
-                        />
-                        {meta.touched && meta.error && (
-                            <p className="error-message">{meta.error}</p>
-                        )}
-                        {children}
-                    </div>
+                    <>
+                        <div className="input-container">
+                            <input
+                                id={id || `input-${name}`}
+                                {...field}
+                                {...rest}
+                            />
+                            {icon}
+                        </div>
+                        <div className="input-footer">
+                            {meta.touched && meta.error && (
+                                <p className="error-message">{meta.error}</p>
+                            )}
+                            {children}
+                        </div>
+                    </>
                 )}
             </Field>
         </div>

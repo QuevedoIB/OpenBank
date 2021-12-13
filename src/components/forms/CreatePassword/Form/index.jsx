@@ -64,12 +64,13 @@ const Step2 = ({ values }) => {
                     placeholder={t('createPassword.step2.passwordLabel', {
                         action: t('common.type'),
                     })}
-                >
-                    <PasswordVisibility
-                        visible={visiblePassword}
-                        toggleVisibility={togglePassword}
-                    />
-                </Input>
+                    icon={
+                        <PasswordVisibility
+                            visible={visiblePassword}
+                            toggleVisibility={togglePassword}
+                        />
+                    }
+                />
                 <Input
                     type={visibleRepeat ? 'text' : 'password'}
                     name="repeatPassword"
@@ -80,12 +81,13 @@ const Step2 = ({ values }) => {
                     placeholder={t('createPassword.step2.passwordLabel', {
                         action: t('common.repeat'),
                     })}
-                >
-                    <PasswordVisibility
-                        visible={visibleRepeat}
-                        toggleVisibility={toggleRepeat}
-                    />
-                </Input>
+                    icon={
+                        <PasswordVisibility
+                            visible={visibleRepeat}
+                            toggleVisibility={toggleRepeat}
+                        />
+                    }
+                />
             </div>
             <p>{t('createPassword.step2.passwordFooter')}</p>
             <Input

@@ -1,17 +1,29 @@
 @import '@/styles/base';
 
-.input-container {
+.input-footer {
     display: flex;
     flex-wrap: wrap;
+}
+
+.input-container {
+    display: flex;
+    border: 1px solid$dark-blue;
 
     & input {
-        width: 100%;
+        flex: 8;
         height: $icon-size;
-        border: 1px solid$dark-blue;
         padding: 0 4px;
+        border: none;
 
         &:focus {
             outline: none;
         }
+    }
+
+    & button {
+        flex: 1;
+        background-color: transparent;
+        border: none;
+        outline: none;
     }
 }

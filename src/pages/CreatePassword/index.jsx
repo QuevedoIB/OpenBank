@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
@@ -28,9 +28,26 @@ const CreatePassword = () => {
     const [submitRedirect, setSubmitRedirect] = useState(null);
     const [t] = useTranslation();
     const dispatch = useDispatch();
+    const formRef = useRef();
+
     const hasPassword = useSelector(state => state.user.user.hasMasterPassword); //redux usage example
 
     const SelectedStep = useMemo(() => steps[step], [step]);
+
+    const [isValidStep, setIsValidStep] = useState(false);
+
+    const validateStep = useCallback(async () => {
+        try {
+            await SelectedStep.validation.validate(formRef.current.values);
+            setIsValidStep(true);
+        } catch {
+            setIsValidStep(false);
+        }
+    }, [SelectedStep]);
+
+    useEffect(() => {
+        validateStep();
+    }, [validateStep]);
 
     const resetStep = useCallback(() => {
         setStep(INITIAL_STEP);
@@ -76,6 +93,7 @@ const CreatePassword = () => {
             <Header steps={steps} selectedStep={step} />
             <h1 className="title">{t('createPassword.title')}</h1>
             <Formik
+                innerRef={formRef}
                 validationSchema={SelectedStep?.validation}
                 initialValues={createPasswordInitialValues}
                 onSubmit={handleSubmit}
@@ -95,7 +113,7 @@ const CreatePassword = () => {
                             onCancelPress={handlePrevious}
                             steps={steps}
                             selectedStep={step}
-                            disabled={!isValid || !dirty}
+                            disabled={!isValidStep && !isValid}
                             loading={isSubmitting}
                         >
                             {submitRedirect && (

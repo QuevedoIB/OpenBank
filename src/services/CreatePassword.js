@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+const PRUEBA_KO = 'pruebaKO123';
+
+const RESPONSE_OK = { status: 200, hasMasterPassword: true };
+const RESPONSE_KO = { status: 401 };
+
 class CreatePasswordService {
     constructor() {
         this.service = axios.create({
@@ -19,13 +24,13 @@ class CreatePasswordService {
     }
 
     create(data) {
+        console.log({ data });
         return new Promise((resolve, reject) => {
-            const success = Math.random() >= 0.5;
             setTimeout(
                 () =>
-                    success
-                        ? resolve({ data: { hasMasterPassword: true } })
-                        : reject({ status: 500 }),
+                    data.password !== PRUEBA_KO
+                        ? resolve(RESPONSE_OK)
+                        : reject(RESPONSE_KO),
                 3000
             );
         });

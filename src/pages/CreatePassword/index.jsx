@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { useState, useMemo, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
@@ -34,27 +34,13 @@ const CreatePassword = () => {
 
     const SelectedStep = useMemo(() => steps[step], [step]);
 
-    const [isValidStep, setIsValidStep] = useState(false);
-
-    const validateStep = useCallback(async () => {
-        try {
-            await SelectedStep.validation.validate(formRef.current.values);
-            setIsValidStep(true);
-        } catch {
-            setIsValidStep(false);
-        }
-    }, [SelectedStep]);
-
-    useEffect(() => {
-        validateStep();
-    }, [validateStep]);
-
     const resetStep = useCallback(() => {
         setStep(INITIAL_STEP);
     }, []);
 
     const handlePrevious = useCallback(() => {
         setStep(currentStep => currentStep - 1);
+        formRef.current.setErrors({});
     }, []);
 
     const handleSubmit = useCallback(
@@ -113,7 +99,7 @@ const CreatePassword = () => {
                             onCancelPress={handlePrevious}
                             steps={steps}
                             selectedStep={step}
-                            disabled={!isValidStep && !isValid}
+                            disabled={!isValid}
                             loading={isSubmitting}
                         >
                             {submitRedirect && (
